@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<title>شمع‌ها</title>
+<style>
+body{
+    background-color:#111;
+    color:white;
+    text-align:center;
+    font-family:tahoma;
+}
+button{
+    padding:10px 20px;
+    font-size:18px;
+    cursor:pointer;
+}
+#shamContainer{
+    margin-top:30px;
+    font-size:20px;
+    color:#ffd700;
+}
+</style>
+</head>
+
+<body>
+
+<h1>یادمان</h1>
+
+<button id="btn">روشن کردن شمع</button>
+
+<div id="shamContainer"></div>
+
+<!-- موسیقی بدون autoplay -->
+<audio id="music" loop>
+  <source src="music.mp3" type="audio/mpeg">
+  مرورگر شما از این صدا پشتیبانی نمی‌کند.
+</audio>
+
+<script>
+
+const people = [
+{name:"حسن درایی", city:"میناب", age:25},
+{name:"پیاز", city:"میناب", age:16},
+{name:"میش", city:"میناب", age:22}
+];
+
+let index = 0;
+
+const container = document.getElementById("shamContainer");
+const button = document.getElementById("btn");
+const music = document.getElementById("music");
+
+button.onclick = function(){
+    // پخش موسیقی فقط یک بار بعد اولین کلیک
+    if(music.paused) music.play();
+
+    if(index < people.length){
+        let p = people[index];
+        let newDiv = document.createElement("div");
+        newDiv.innerText = "🕯 " + p.name + " - " + p.city + " - " + p.age + " سال";
+        container.appendChild(newDiv);
+        index++;
+    }else{
+        alert("همه شمع‌ها روشن شدند");
+    }
+}
+
+</script>
+
+</body>
+</html>
