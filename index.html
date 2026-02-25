@@ -1,124 +1,0 @@
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-<meta charset="UTF-8">
-<title>یادمان شمع‌ها</title>
-<style>
-body{
-    background-color:#111;
-    color:white;
-    text-align:center;
-    font-family:tahoma, sans-serif;
-    margin:0;
-    padding:0;
-}
-h1{
-    font-size:2em;
-    margin-top:20px;
-}
-button{
-    padding:12px 24px;
-    font-size:20px;
-    cursor:pointer;
-    margin-top:15px;
-}
-#shamContainer{
-    margin-top:30px;
-    font-size:22px;
-    color:#ffd700;
-}
-.shamItem{
-    margin:15px 0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-.shamItem video{
-    width:40px;
-    height:auto;
-    margin-left:10px;
-}
-@media (max-width:600px){
-    h1{font-size:2.5em;}
-    button{font-size:22px; padding:15px 30px;}
-    #shamContainer{font-size:24px;}
-    .shamItem video{width:60px;}
-}
-</style>
-</head>
-
-<body>
-
-<h1>یادمان جاویدان</h1>
-
-<button id="btn">روشن کردن شمع</button>
-
-<div id="shamContainer"></div>
-
-<audio id="music" loop>
-  <source src="music.mp3" type="audio/mpeg">
-  مرورگر شما از این صدا پشتیبانی نمی‌کند.
-</audio>
-
-<script>
-// لیست نمونه فارسی ۳۰ نفر بدون سن
-const people = [
-{name:"احسان قاسمی‌فرد", city:"کرج"},
-{name:"علی کعبی", city:"اهواز"},
-{name:"مسعود دولتشاه", city:"تهران"},
-{name:"بهرروز طمندانى", city:"ایرانشهر"},
-{name:"دکتر پیمان جاسمی", city:"ایلام"},
-{name:"یزدان آقاجانی", city:"تهران"},
-{name:"محمد خلیلی", city:"مشهد"},
-{name:"میلاد زمانی", city:"کرج"},
-{name:"مقداد عزیزی", city:"تهران"},
-{name:"میثم پدیدار", city:"رشت"},
-{name:"ریباز صالحی‌وند", city:"مهاباد"},
-{name:"حسام حسینی", city:"جوانرود"},
-{name:"کوروش پزاخ", city:"اسلام‌آباد"},
-{name:"سروش سیدی", city:"جوانرود"},
-{name:"رضا شرفی", city:"سی‌سخت"},
-{name:"عمران ابرکار", city:"راسك"},
-{name:"منصور قربانی", city:"اصفهان"},
-{name:"رشید رشیدی", city:"شوشتر"},
-{name:"فرهاد خسرونی", city:"کرمانشاه"},
-{name:"امیرحسین دليري", city:"لاهیجان"},
-{name:"دنیا فرهادی", city:"اهواز"},
-{name:"سمیرا ابراهیمی", city:"کرمان"},
-{name:"مجیدرضا رهنورد", city:"مشهد"},
-{name:"شهریار عادلی", city:"سردشت"},
-{name:"احمد گودرزی", city:"بروجرد"},
-{name:"آیدا رستمی", city:"تهران"},
-{name:"حبیب‌الله یعقوبی", city:"زاهدان"},
-{name:"عباس منصوری", city:"شوش"},
-{name:"مصطفی اکبریان", city:"بابا حیدر"},
-{name:"غزال امیری", city:"شیراز"}
-];
-
-let index = 0;
-const container = document.getElementById("shamContainer");
-const button = document.getElementById("btn");
-const music = document.getElementById("music");
-
-// لینک MP4 شمع محلی
-const shamVideo = "sham.mp4";
-
-button.onclick = function(){
-    if(music.paused) music.play();
-
-    if(index < people.length){
-        let p = people[index];
-        let div = document.createElement("div");
-        div.className = "shamItem";
-        div.innerHTML = `<span>🕯 ${p.name} - ${p.city}</span>
-        <video src="${shamVideo}" autoplay loop muted></video>`;
-        container.appendChild(div);
-        index++;
-    } else {
-        alert("تمام شمع‌ها روشن شدند");
-    }
-}
-</script>
-
-</body>
-</html>
