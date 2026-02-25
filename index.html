@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<title>یادمان جاویدان</title>
+
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet"/>
+
+<style>
+body{
+    font-family:'Vazir',sans-serif;
+    margin:0;
+    padding-top:120px;
+    text-align:center;
+    color:white;
+    overflow-x:hidden;
+    background:black;
+}
+
+/* ویدئوی پس‌زمینه */
+#bgVideo{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:-1; /* پشت همه چیز */
+}
+
+/* عنوان اصلی */
+h1{
+    font-size:2.8em;
+    color:#ff4444;
+    text-shadow:0 0 15px #660000;
+    position:relative; /* بالا از ویدئو */
+    z-index:1;
+}
+
+/* دکمه روشن کردن شمع */
+#btn{
+    position:fixed;
+    top:20px;
+    left:50%;
+    transform:translateX(-50%);
+    padding:15px 35px;
+    font-size:22px;
+    background:#ffd700;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    box-shadow:0 0 15px #ffd700;
+    z-index:1;
+}
+
+/* شمع و اسم */
+.shamItem{
+    display:flex;
+    align-items:center; 
+    justify-content:center; 
+    gap:15px; 
+    margin:30px 0;
+    opacity:0;
+    animation:fadeIn 1s forwards;
+    position:relative;
+    z-index:1;
+}
+
+@keyframes fadeIn{
+    to{opacity:1;}
+}
+
+.shamItem span{
+    color:#ff3333;
+    font-weight:bold;
+    font-size:22px;
+    text-shadow:
+        0 0 5px #990000,
+        0 0 15px #660000,
+        0 0 25px #330000;
+}
+
+.shamItem video{
+    width:40px;
+    max-width:15vw;
+    border-radius:8px;
+    box-shadow:0 0 20px #ffdd99;
+}
+
+@media(max-width:600px){
+    .shamItem span{font-size:20px;}
+    .shamItem video{width:32px;}
+}
+</style>
+</head>
+
+<body>
+
+<h1>یادمان جاویدان</h1>
+<button id="btn">روشن کردن شمع</button>
+
+<div id="shamContainer"></div>
+
+<!-- ویدئوی پس‌زمینه -->
+<video autoplay muted loop id="bgVideo">
+    <source src="shamha/background.mp4" type="video/mp4">
+</video>
+
+<audio id="music" loop>
+    <source src="shamha/music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+let names = [];
+let index = 0;
+
+const container = document.getElementById("shamContainer");
+const button = document.getElementById("btn");
+const music = document.getElementById("music");
+
+// بارگذاری اسامی
+fetch("shamha/names_only.txt")
+.then(res => res.text())
+.then(text => {
+    names = text.split("\n").filter(n => n.trim() !== "");
+});
+
+button.onclick = function(){
+    if(music.paused) music.play();
+
+    if(index < names.length){
+        let div = document.createElement("div");
+        div.className = "shamItem";
+        div.innerHTML = `
+            <span>🕯 ${names[index]}</span>
+            <video src="shamha/sham.mp4" autoplay loop muted></video>
+        `;
+        container.appendChild(div);
+        div.scrollIntoView({behavior:"smooth", block:"center"});
+        index++;
+    }else{
+        alert("تمام شمع‌ها روشن شدند");
+    }
+}
+</script>
+
+</body>
+</html>
